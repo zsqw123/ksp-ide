@@ -33,7 +33,7 @@ abstract class AnnotationLineMaker(private val annotationFqn: String) : LineMark
     override fun collectSlowLineMarkers(
         elements: MutableList<out PsiElement>, result: MutableCollection<in LineMarkerInfo<*>>
     ) {
-        val uDeclarations = elements.filter {
+        val uAnnotations = elements.filter {
             (it.elementType == KtTokens.IDENTIFIER ||
                 it.elementType == ElementType.IDENTIFIER) &&
                 it.text.endsWith(annotationShort)
@@ -41,12 +41,12 @@ abstract class AnnotationLineMaker(private val annotationFqn: String) : LineMark
             it.parentOfTypes(KtAnnotationEntry::class, PsiAnnotation::class)
                 ?.parentOfTypes(KtModifierListOwner::class, PsiModifierListOwner::class)
                 .toUElement()
-        }.filterIsInstance<UDeclaration>().filter {
-            it.findAnnotation(annotationFqn) != null
+        }.filterIsInstance<UDeclaration>().mapNotNull {
+            it.findAnnotation(annotationFqn)
         }
-        for (uDeclaration in uDeclarations) {
-            val sourcePsi = uDeclaration.uastAnchor?.sourcePsi ?: continue
-            result.add(AnnotationMarkerInfo(sourcePsi, "999"))
+        for (uAnnotation in uAnnotations) {
+            val sourcePsi = uAnnotation.uastAnchor?.sourcePsi ?: continue
+            result.add(AnnotationMarkerInfo(sourcePsi, "Fast Generate KSP"))
         }
     }
 }
