@@ -21,15 +21,18 @@ class FakeAnnotationProcessor : KspAnnotationProcessor() {
             "Generate KSP Files", sourcePsi.project, cancellable = false,
         ) { indicator ->
             if (taskIsRunning.get()) return@runBackgroundableTask
-            taskIsRunning.set(true)
-            indicator.isIndeterminate = false
-            repeat(3) {
-                indicator.fraction = (it + 1) / 3.0
-                Thread.sleep(1000)
+            try {
+                taskIsRunning.set(true)
+                indicator.isIndeterminate = false
+                repeat(3) {
+                    indicator.fraction = (it + 1) / 3.0
+                    Thread.sleep(1000)
+                }
+                sendKspNotify("Ksp files generate success")
+                indicator.stop()
+            } finally {
+                taskIsRunning.set(false)
             }
-            sendKspNotify("Ksp files generate success")
-            indicator.stop()
-            taskIsRunning.set(false)
         }
     }
 }
