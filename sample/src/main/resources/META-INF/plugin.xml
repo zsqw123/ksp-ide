@@ -20,6 +20,7 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <codeInsight.lineMarkerProvider language="UAST" implementationClass="zsu.ksp.ide.sample.FakeMarker"/>
+        <notificationGroup id="fast.ksp.generate.ide" displayType="BALLOON"/>
         <!-- Add your extensions here -->
     </extensions>
 

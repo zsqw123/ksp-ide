@@ -1,5 +1,8 @@
 package com.zsu.ksp.ide
 
+import com.intellij.notification.Notification
+import com.intellij.notification.NotificationType
+import com.intellij.notification.Notifications
 import com.intellij.openapi.project.guessModuleDir
 import com.intellij.openapi.project.guessProjectDir
 import com.intellij.openapi.vfs.VfsUtilCore
@@ -36,3 +39,11 @@ private const val KSP_GENERATE_DIR = "ksp_generate_dir"
 val VirtualFile.ioFile: File
     get() = VfsUtilCore.virtualToIoFile(this)
 
+fun sendKspNotify(notifyContent: String) {
+    Notifications.Bus.notify(
+        Notification(
+            "fast.ksp.ide", "",
+            notifyContent, NotificationType.INFORMATION,
+        ),
+    )
+}
