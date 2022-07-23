@@ -1,4 +1,4 @@
-<idea-plugin>
+<idea-plugin xmlns:xi="http://www.w3.org/2001/XInclude">
     <id>com.zsu.ksp.ide.sample</id>
     <name>Ksp-IDEA</name>
     <idea-version since-build="201.6858.69"/>
@@ -10,7 +10,7 @@
     ZSU KSP IDEA Plugin.<br>
     ]]></description>
 
-    <!--    <xi:include href="/META-INF/Eden-plugin.xml"/>-->
+    <xi:include href="/META-INF/ksp-ide.xml"/>
     <!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html
          on how to target different products -->
     <depends>com.intellij.modules.platform</depends>

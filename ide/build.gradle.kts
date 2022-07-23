@@ -1,6 +1,7 @@
 plugins {
-    id("org.jetbrains.intellij")
     kotlin("jvm")
+    id("org.jetbrains.intellij")
+    id("com.vanniktech.maven.publish")
 }
 
 repositories {

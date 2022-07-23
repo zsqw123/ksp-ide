@@ -1,0 +1,6 @@
+<idea-plugin>
+    <depends>com.intellij.modules.platform</depends>
+    <extensions defaultExtensionNs="com.intellij">
+        <notificationGroup id="fast.ksp.generate.ide" displayType="BALLOON"/>
+    </extensions>
+</idea-plugin>
