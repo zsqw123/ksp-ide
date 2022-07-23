@@ -27,7 +27,7 @@ abstract class AnnotationLineMaker(private val processor: KspAnnotationProcessor
     override fun getLineMarkerInfo(element: PsiElement): LineMarkerInfo<*>? = null
     abstract fun icon(): Icon
 
-    class AnnotationMarkerInfo(
+    private class AnnotationMarkerInfo(
         element: PsiElement, message: String, icon: Icon,
         navHandler: GutterIconNavigationHandler<PsiElement>? = null
     ) : LineMarkerInfo<PsiElement>(
@@ -72,7 +72,7 @@ abstract class AnnotationLineMaker(private val processor: KspAnnotationProcessor
         }
     }
 
-    private fun findKspRoot(context: UDeclaration): File? {
+    protected open fun findKspRoot(context: UDeclaration): File? {
         val sourcePsi = context.sourcePsi ?: return null
         val kspRoot = readKspPath(sourcePsi)
         if (kspRoot == null) {

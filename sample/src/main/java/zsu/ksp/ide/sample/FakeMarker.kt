@@ -1,52 +1,45 @@
 package zsu.ksp.ide.sample
 
-import com.intellij.openapi.progress.runBackgroundableTask
-import com.intellij.openapi.vfs.VirtualFileManager
+import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.FileSpec
+import com.squareup.kotlinpoet.FunSpec
+import com.squareup.kotlinpoet.KModifier
+import com.squareup.kotlinpoet.TypeSpec
 import com.zsu.ksp.ide.AnnotationLineMaker
-import com.zsu.ksp.ide.KspAnnotationProcessor
-import com.zsu.ksp.ide.sendKspNotify
+import com.zsu.ksp.poet.PoetAnnotationProcessor
 import org.jetbrains.kotlin.idea.KotlinIcons
-import org.jetbrains.kotlin.idea.util.application.runReadAction
-import org.jetbrains.kotlin.util.capitalizeDecapitalize.capitalizeAsciiOnly
 import org.jetbrains.uast.UDeclaration
-import java.io.File
-import java.util.concurrent.atomic.AtomicBoolean
+import org.jetbrains.uast.UMethod
 import javax.swing.Icon
 
-internal const val FAKE_FQN = "com.fake.FakeClass"
+internal const val FAKE_FQN = "org.example.Anno"
 
 class FakeMarker : AnnotationLineMaker(FakeAnnotationProcessor()) {
     override fun icon(): Icon = KotlinIcons.SUSPEND_CALL
 }
 
-class FakeAnnotationProcessor : KspAnnotationProcessor {
+class FakeAnnotationProcessor : PoetAnnotationProcessor() {
     override val annotationFqn: String = FAKE_FQN
-    private val taskIsRunning = AtomicBoolean()
-    override fun processAnnotated(annotated: UDeclaration, kspRoot: File) {
-        val sourcePsi = annotated.sourcePsi ?: return
-        runBackgroundableTask(
-            "Generate KSP Files", sourcePsi.project, cancellable = false,
-        ) { indicator ->
-            if (taskIsRunning.get()) return@runBackgroundableTask
-            try {
-                taskIsRunning.set(true)
-                indicator.isIndeterminate = false
-                val dir = File(kspRoot, "com/zsu/sample")
-                if (!dir.exists()) dir.mkdirs()
-                val name = runReadAction {
-                    annotated.uastAnchor?.sourcePsi?.text?.capitalizeAsciiOnly() ?: "STUB"
-                }
-                val aKtFile = File(dir, "Fake$name.kt")
-                aKtFile.writeText(
-                    "package com.zsu.sample\n" +
-                        "class Fake$name",
-                )
-                sendKspNotify("Ksp files generate success")
-                VirtualFileManager.getInstance().asyncRefresh(null)
-                indicator.stop()
-            } finally {
-                taskIsRunning.set(false)
-            }
-        }
+    override fun readAnnotated(annotated: UDeclaration): FileSpec? {
+        val sourcePsi = annotated.sourcePsi ?: return null
+        val pkg = sourcePsi.containingFile.packageName ?: return null
+        val className = (annotated as? UMethod)?.name ?: return null
+        return sampleFile(pkg, className)
+    }
+
+    private fun sampleFile(packageName: String, className: String): FileSpec {
+        val fakeClassName = "Fake${className.capitalize()}"
+        val simpleClass = TypeSpec.classBuilder(fakeClassName)
+        simpleClass.addFunction(
+            FunSpec.builder("ccc")
+                .addModifiers(KModifier.PUBLIC)
+                .returns(ClassName.bestGuess("$packageName.$fakeClassName"))
+                .addStatement("val a = \"1\"")
+                .addStatement("return Fake${className.capitalize()}()")
+                .build(),
+        )
+        return FileSpec.builder(packageName, fakeClassName)
+            .addType(simpleClass.build())
+            .build()
     }
 }
