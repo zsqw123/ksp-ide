@@ -19,6 +19,7 @@
     <depends>org.jetbrains.kotlin</depends>
 
     <extensions defaultExtensionNs="com.intellij">
+        <notificationGroup id="fast.ksp.generate.ide" displayType="BALLOON"/>
         <!-- Add your extensions here -->
     </extensions>
 

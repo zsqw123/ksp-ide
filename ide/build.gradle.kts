@@ -13,7 +13,7 @@ intellij {
     version.set(properties["ide_target"].toString()) // target version
     type.set("IC")
     updateSinceUntilBuild.set(false)
-    plugins.set(listOf("com.intellij.java", "org.jetbrains.kotlin", "gradle"))
+    plugins.set(listOf("com.intellij.java", "org.jetbrains.kotlin"))
 }
 
 dependencies {

@@ -20,7 +20,6 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <codeInsight.lineMarkerProvider language="UAST" implementationClass="zsu.ksp.ide.sample.FakeMarker"/>
-        <notificationGroup id="fast.ksp.generate.ide" displayType="BALLOON"/>
         <!-- Add your extensions here -->
     </extensions>
 
@@ -29,7 +28,6 @@
     </extensions>
 
     <extensions defaultExtensionNs="org.jetbrains.kotlin">
-        <!--        <resolveScopeEnlarger implementation="com.zsu.eden.sample.MowoKotlinScopeEnlarger"/>-->
         <!-- kotlin extension-->
     </extensions>
     <actions>
