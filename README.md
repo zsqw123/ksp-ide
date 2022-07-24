@@ -2,6 +2,8 @@
 
 Skip the gradle ksp task and use the IDE plug-in to quickly process the annotations!
 
+![preview](./preview.gif)
+
 ## Quickstart
 
 ### 1. Add Dependencies
