@@ -57,6 +57,14 @@ Then register to your plugin.xml
 </idea-plugin>
 ```
 
+### 4. Config KSP Path
+
+Add the following to the `gradle.properties` file in the root directory of the corresponding module
+
+```properties
+ksp_generate_dir=build/generated/ksp/main/kotlin
+```
+
 So we're all done, simply and elegantly.
 
 ## LICENSE
