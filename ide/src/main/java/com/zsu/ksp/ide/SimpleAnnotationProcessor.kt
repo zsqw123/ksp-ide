@@ -9,7 +9,15 @@ import java.util.concurrent.atomic.AtomicBoolean
 
 abstract class SimpleAnnotationProcessor<D> : KspAnnotationProcessor {
     private val taskIsRunning = AtomicBoolean()
+
+    /**
+     * read annotated [UDeclaration], convert to our data which can be used to generate some files.
+     */
     abstract fun readAnnotated(annotated: UDeclaration): D
+
+    /**
+     * write data to file, don't do any psi related things here.
+     */
     abstract fun writeToFile(data: D, kspRoot: File)
     override fun processAnnotated(annotated: UDeclaration, kspRoot: File) {
         if (taskIsRunning.get()) return
