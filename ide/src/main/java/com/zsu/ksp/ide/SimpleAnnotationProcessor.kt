@@ -37,6 +37,8 @@ abstract class SimpleAnnotationProcessor<D> : KspAnnotationProcessor {
                 VirtualFileManager.getInstance().asyncRefresh(null)
                 indicator.fraction = 1.0
                 indicator.stop()
+            } catch (e: Exception) {
+                e.printStackTrace()
             } finally {
                 taskIsRunning.set(false)
             }
