@@ -6,7 +6,7 @@ import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.TypeSpec
 import com.zsu.ksp.ide.AnnotationLineMaker
-import com.zsu.ksp.poet.PoetAnnotationProcessor
+import com.zsu.ksp.ide.poet.PoetAnnotationProcessor
 import org.jetbrains.kotlin.idea.KotlinIcons
 import org.jetbrains.uast.UDeclaration
 import org.jetbrains.uast.UMethod

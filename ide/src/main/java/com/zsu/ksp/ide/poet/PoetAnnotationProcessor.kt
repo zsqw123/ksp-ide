@@ -1,4 +1,4 @@
-package com.zsu.ksp.poet
+package com.zsu.ksp.ide.poet
 
 import com.squareup.kotlinpoet.FileSpec
 import com.zsu.ksp.ide.SimpleAnnotationProcessor

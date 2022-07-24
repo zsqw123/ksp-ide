@@ -40,3 +40,21 @@ fun sendKspNotify(notifyContent: String) {
         ),
     )
 }
+
+fun sendKspError(notifyContent: String) {
+    Notifications.Bus.notify(
+        Notification(
+            "fast.ksp.generate.ide", "Ksp-ide generate failed.",
+            notifyContent, NotificationType.ERROR,
+        ),
+    )
+}
+
+fun sendKspWarning(notifyContent: String) {
+    Notifications.Bus.notify(
+        Notification(
+            "fast.ksp.generate.ide", "",
+            notifyContent, NotificationType.WARNING,
+        ),
+    )
+}
