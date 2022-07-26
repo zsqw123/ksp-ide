@@ -54,7 +54,7 @@ Then register to your plugin.xml
 <idea-plugin xmlns:xi="http://www.w3.org/2001/XInclude">
     <xi:include href="/META-INF/ksp-ide.xml"/>
     <extensions defaultExtensionNs="com.intellij">
-        <codeInsight.lineMarkerProvider language="UAST" implementationClass="zsu.ksp.ide.sample.FakeMarker"/>
+        <codeInsight.lineMarkerProvider language="kotlin" implementationClass="zsu.ksp.ide.sample.FakeMarker"/>
     </extensions>
 </idea-plugin>
 ```

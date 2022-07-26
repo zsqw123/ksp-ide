@@ -19,7 +19,7 @@
     <depends>org.jetbrains.kotlin</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <codeInsight.lineMarkerProvider language="UAST" implementationClass="zsu.ksp.ide.sample.FakeMarker"/>
+        <codeInsight.lineMarkerProvider language="kotlin" implementationClass="zsu.ksp.ide.sample.FakeMarker"/>
         <!-- Add your extensions here -->
     </extensions>
 
