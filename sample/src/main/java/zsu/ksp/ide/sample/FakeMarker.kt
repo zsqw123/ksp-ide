@@ -8,8 +8,7 @@ import com.squareup.kotlinpoet.TypeSpec
 import com.zsu.ksp.ide.AnnotationLineMaker
 import com.zsu.ksp.ide.poet.PoetAnnotationProcessor
 import org.jetbrains.kotlin.idea.KotlinIcons
-import org.jetbrains.uast.UDeclaration
-import org.jetbrains.uast.UMethod
+import org.jetbrains.kotlin.psi.KtDeclaration
 import javax.swing.Icon
 
 internal const val FAKE_FQN = "org.example.Anno"
@@ -20,10 +19,9 @@ class FakeMarker : AnnotationLineMaker(FakeAnnotationProcessor()) {
 
 class FakeAnnotationProcessor : PoetAnnotationProcessor() {
     override val annotationFqn: String = FAKE_FQN
-    override fun readAnnotated(annotated: UDeclaration): FileSpec? {
-        val sourcePsi = annotated.sourcePsi ?: return null
-        val pkg = sourcePsi.containingFile.packageName ?: return null
-        val className = (annotated as? UMethod)?.name ?: return null
+    override fun readAnnotated(annotated: KtDeclaration): FileSpec? {
+        val pkg = annotated.containingFile.packageName ?: return null
+        val className = annotated.name ?: return null
         return sampleFile(pkg, className)
     }
 

@@ -13,6 +13,7 @@ import com.squareup.kotlinpoet.WildcardTypeName
 import org.jetbrains.annotations.Nullable
 import org.jetbrains.kotlin.idea.core.getPackage
 import org.jetbrains.kotlin.psi.KtElement
+import org.jetbrains.kotlin.types.KotlinType
 import org.jetbrains.uast.UAnnotated
 import org.jetbrains.uast.UElement
 import kotlin.jvm.internal.Reflection
@@ -57,6 +58,8 @@ val PsiType.firstTypeParameter: PsiType?
 /**
  * convert java [PsiType] to [TypeName], it will analyze all typeParameters to construct the
  * right [TypeName].
+ *
+ * **It is highly recommended to use [KotlinType.asTypeName] instead of it**
  * @return kotlin poet TypeName
  */
 fun PsiType.asTypeName(nullable: Boolean? = null, ignoreWildcard: Boolean = true): TypeName {

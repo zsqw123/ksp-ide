@@ -32,7 +32,7 @@ to extend `PoetAnnotationProcessor`, and implement the `readAnnotated`:
 class FakeAnnotationProcessor : PoetAnnotationProcessor() {
     // your annotation class full qualified name
     override val annotationFqn: String = FAKE_FQN
-    override fun readAnnotated(annotated: UDeclaration): FileSpec? {
+    override fun readAnnotated(annotated: KtDeclaration): FileSpec? {
         // read annotated to generate a kotlinpoet FileSpec
     }
 }
