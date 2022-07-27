@@ -21,4 +21,5 @@ fun KotlinType.asTypeName(): TypeName {
     val arguments = arguments
     if (arguments.isEmpty()) return rootTypeName.copy(isMarkedNullable)
     return rootTypeName.parameterizedBy(arguments.map { it.type.asTypeName() })
+        .copy(isMarkedNullable)
 }
